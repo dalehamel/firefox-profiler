@@ -282,7 +282,25 @@ export function getDownloadRecipeForSourceFile(
       };
     }
     case 'normal': {
-      return { type: 'NO_KNOWN_CORS_URL' };
+      const { path } = parsedFile;
+
+      // TODO prefer these values, and fallback to the current ones:
+      //
+      // - service_repository
+      // - service_git_ref
+      // - service_root_path (optional, default to /)
+      //
+      // from:
+      // https://grafana.com/docs/grafana-cloud/monitor-applications/profiles/pyroscope-github-integration/#application-with-profiling-data-requirements
+      const meta = getState().profileView.profile.meta;
+      const sha = meta.sha;
+      const service_name = meta.service_name;
+      console.log("GOT sha: "+sha+ " svc: "+service_name);
+      return {
+        type: 'CORS_ENABLED_SINGLE_FILE',
+        url: `http://localhost:8000/src?repo=${service_name}&ref=${sha}&path=${path}`
+      };
+
     }
     default:
       throw assertExhaustiveCheck(parsedFile.type, 'unhandled ParsedFile type');
