@@ -298,7 +298,7 @@ export function getDownloadRecipeForSourceFile(
       console.log("GOT sha: "+sha+ " svc: "+service_name);
       return {
         type: 'CORS_ENABLED_SINGLE_FILE',
-        url: `https://profile-staging.shopify.io/src?repo=${service_name}&ref=${sha}&path=${path}`
+        url: `/src?repo=${service_name}&ref=${sha}&path=${path}`
       };
 
     }
