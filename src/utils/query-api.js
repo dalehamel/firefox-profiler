@@ -136,8 +136,9 @@ export class RegularExternalCommunicationDelegate
 
   async fetchUrlResponse(url: string, postData?: MixedObject) {
     this._callbacks.onBeginUrlRequest(url);
-    const requestInit =
-      postData !== undefined
+    const requestInit = url.startsWith('/')
+      ? {}
+      : postData !== undefined
         ? {
             body: postData,
             method: 'POST',
