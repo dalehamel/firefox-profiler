@@ -278,7 +278,7 @@ export function getDownloadRecipeForSourceFile(
       const { gem, path } = parsedFile;
       return {
         type: 'CORS_ENABLED_SINGLE_FILE',
-        url: `https://gems.vernier.prof/${gem}/${path}`
+        url: `/src?gem=${gem}&path=${path}`
       };
     }
     case 'normal': {
