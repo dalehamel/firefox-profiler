@@ -5,7 +5,7 @@
 // @flow
 
 import { assertExhaustiveCheck } from 'firefox-profiler/utils/flow';
-import { rubyGemDownloadRecipe, normalPathCatchall } from 'firefox-profiler/utils/ruby-paths';
+import { rubyGemDownloadRecipe, normalPathCatchall } from 'firefox-profiler/utils/ruby-paths-internal';
 import { PROFILER_SERVER_ORIGIN } from 'firefox-profiler/app-logic/constants';
 
 export type ParsedFileNameFromSymbolication =
