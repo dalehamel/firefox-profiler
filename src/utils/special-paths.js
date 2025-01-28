@@ -5,6 +5,7 @@
 // @flow
 
 import { assertExhaustiveCheck } from 'firefox-profiler/utils/flow';
+import { rubyGemDownloadRecipe, normalPathCatchall } from 'firefox-profiler/utils/ruby-paths';
 import { PROFILER_SERVER_ORIGIN } from 'firefox-profiler/app-logic/constants';
 
 export type ParsedFileNameFromSymbolication =
@@ -275,32 +276,10 @@ export function getDownloadRecipeForSourceFile(
       };
     }
     case 'gem': {
-      const { gem, path } = parsedFile;
-      return {
-        type: 'CORS_ENABLED_SINGLE_FILE',
-        url: `/src?gem=${gem}&path=${path}`
-      };
+      return rubyGemDownloadRecipe(parsedFile);
     }
     case 'normal': {
-      const { path } = parsedFile;
-
-      // TODO prefer these values, and fallback to the current ones:
-      //
-      // - service_repository
-      // - service_git_ref
-      // - service_root_path (optional, default to /)
-      //
-      // from:
-      // https://grafana.com/docs/grafana-cloud/monitor-applications/profiles/pyroscope-github-integration/#application-with-profiling-data-requirements
-      const meta = getState().profileView.profile.meta;
-      const sha = meta.sha;
-      const service_name = meta.service_name;
-      console.log("GOT sha: "+sha+ " svc: "+service_name);
-      return {
-        type: 'CORS_ENABLED_SINGLE_FILE',
-        url: `/src?repo=${service_name}&ref=${sha}&path=${path}`
-      };
-
+      return normalPathCatchall(parsedFile);
     }
     default:
       throw assertExhaustiveCheck(parsedFile.type, 'unhandled ParsedFile type');
