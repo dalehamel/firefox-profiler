@@ -3,7 +3,7 @@ export async function tryLoadRubyHooks() {
         //const hookModule = await import(/* webpackIgnore: true */ 'firefox-profiler/utils/ruby-custom-hooks');
 
         const context = require.context('./', false, /ruby-custom-hooks\.js$/);
-        const hookModule = context('./ruby-custom-hooks');
+        const hookModule = context('./ruby-custom-hooks.js');
 
         if (hookModule) {
           return {
