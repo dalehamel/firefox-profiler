@@ -1,4 +1,4 @@
-async function tryLoadRubyHooks() {
+export async function tryLoadRubyHooks() {
     try {
         //const hookModule = await import(/* webpackIgnore: true */ 'firefox-profiler/utils/ruby-custom-hooks');
 
